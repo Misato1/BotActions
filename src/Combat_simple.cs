@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BotActions
-{
-    class Combat_simple
-    {
-        
+﻿ 
 using BotSharp.ToScript.Extension;
 using Parse = Sanderling.Parse;
 
@@ -26,15 +16,16 @@ var Measurement = Sanderling?.MemoryMeasurementParsed?.Value;
             ?.OrderBy(entry => entry?.DistanceMax ?? int.MaxValue)
             ?.ToArray();
 
-    Host.Log(ListRatOverviewEntry.Length);
 
+
+Host.Log(ListRatOverviewEntry.Length);
 var SetRatName =
         ListRatOverviewEntry?.Select(entry => Regex.Split(entry?.Name ?? "", @"\s+")?.FirstOrDefault())
         ?.Distinct()
         ?.ToArray();
-
-    var SetRatTarget = Measurement?.Target?.Where(target =>
-        SetRatName?.Any(ratName => target?.TextRow?.Any(row => row.RegexMatchSuccessIgnoreCase(ratName)) ?? false) ?? false);
+var SetRatTarget = Measurement?.Target?.Where(target => SetRatName?.
+Any(ratName => target?.TextRow?.
+Any(row => row.RegexMatchSuccessIgnoreCase(ratName)) ?? false) ?? false);
 
     var RatTargetNext = SetRatTarget?.OrderBy(target => target?.DistanceMax ?? int.MaxValue)?.FirstOrDefault();
 
@@ -69,5 +60,3 @@ if(null == RatTargetNext)
 	}
 	
 
-    }
-}
