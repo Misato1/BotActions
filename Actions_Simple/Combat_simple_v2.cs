@@ -103,21 +103,24 @@ public void Combat(OverEntry[] InpuArray, int InputMaxTargets)
 
 
     var Measurment = Sanderling.MemoryMeasurementParsed?.Value;
-    Host.Log("Drone launch no preference");
-    var DroneBay = Measurment.WindowDroneView[0].RegionInteraction;
-    //Sanderling.MouseClickLeft(DroneBay);
-    Host.Delay(500);
+    // launch drones if no in space
+    DronesInSpaceGlobal = DronesInSpace();
+    if (DronesInSpaceGlobal < 5)
+    {
+        Host.Log("Drone launch no preference");
+        var DroneBay = Measurment.WindowDroneView[0].RegionInteraction;
+        Host.Delay(500);
+        Sanderling.KeyboardPressCombined(ButtonToLaunchDrones);
 
-    Sanderling.KeyboardPressCombined(ButtonToLaunchDrones);
-    //Sanderling.KeyboardPress(VirtualKeyCode.VK_Z);
-
+    }
     Host.Delay(500);
 
     // targeting cycle
     targetingcycle(InpuArray);
+    //damagecycle();
     damagecycle(InpuArray);
 
-    //damagecycle();
+
 
 
 }
@@ -136,7 +139,7 @@ public void targetingcycle(OverEntry[] InpuArray)
             Host.Delay(500);
             Sanderling.KeyboardPressCombined(ButtonToLock);
             Host.Delay(500);
-            if (i == 3)
+            if (i == 7)
             {
                 break;
             }
